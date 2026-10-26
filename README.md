@@ -1,1 +1,1 @@
-# AI-Powered-EdTech-Web-v6
+# AI-Powered-EdTech-Web
