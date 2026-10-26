@@ -686,6 +686,7 @@
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="#/bank" class="btn btn-primary btn-lg"><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bắt đầu luyện tập</a>
             <a href="#/exams" class="btn btn-secondary btn-lg"><i class="fa-regular fa-clock" aria-hidden="true"></i>Làm đề thi thử</a>
+            <a href="#/about" class="btn btn-ghost btn-lg">Tìm hiểu thêm</a>
           </div>
           <dl class="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-slate-200 pt-6">
             <div><dt class="text-xs font-semibold uppercase tracking-wide text-slate-500">Câu hỏi</dt><dd class="mt-1 text-2xl font-extrabold text-slate-900">${questionBank.length}</dd></div>
@@ -749,6 +750,33 @@
           <div class="mt-auto flex flex-wrap gap-3 pt-6">
             <a href="#/stats" class="btn btn-primary btn-lg"><i class="fa-solid fa-chart-line" aria-hidden="true"></i>Xem thống kê</a>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4 pt-6" aria-labelledby="engage-title">
+      <div class="grid gap-5 lg:grid-cols-2">
+        <article class="card flex flex-col p-6 sm:p-8">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-xl text-orange-600"><i class="fa-solid fa-fire" aria-hidden="true"></i></span>
+          <h3 id="engage-title" class="mt-5 text-xl font-extrabold text-slate-900">Chuỗi ngày học, XP và huy hiệu</h3>
+          <p class="mt-2 leading-relaxed text-slate-600">Mỗi ngày học giữ chuỗi lửa, mỗi câu đúng nhận điểm kinh nghiệm. Lên cấp, mở khóa huy hiệu và biến việc ôn tập thành thói quen hằng ngày.</p>
+          <ul class="mt-4 flex flex-wrap gap-2" aria-label="Ví dụ huy hiệu">
+            ${[["fa-fire", "Một tuần bền bỉ", "bg-orange-100 text-orange-700"], ["fa-star", "Điểm tuyệt đối", "bg-amber-100 text-amber-700"], ["fa-brain", "Cỗ máy kiến thức", "bg-indigo-100 text-indigo-700"], ["fa-trophy", "Đứng trên bục", "bg-rose-100 text-rose-700"]]
+              .map(([icon, label, tone]) => `<li class="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-bold ${tone}"><i class="fa-solid ${icon}" aria-hidden="true"></i>${label}</li>`)
+              .join("")}
+          </ul>
+          <div class="mt-auto pt-6"><a href="#/profile" class="btn btn-primary btn-lg"><i class="fa-solid fa-medal" aria-hidden="true"></i>Xem thành tích của tôi</a></div>
+        </article>
+        <article class="card flex flex-col p-6 sm:p-8">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-100 text-xl text-rose-600"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span>
+          <h3 class="mt-5 text-xl font-extrabold text-slate-900">Đấu trắc nghiệm trực tiếp</h3>
+          <p class="mt-2 leading-relaxed text-slate-600">Giáo viên mở phòng, học sinh nhập mã trên điện thoại và cùng trả lời. Điểm tính theo tốc độ, bảng xếp hạng cập nhật sau mỗi câu.</p>
+          <ul class="mt-5 grid gap-2 text-sm text-slate-700">
+            <li class="flex gap-2.5"><i class="fa-solid fa-circle-check mt-0.5 text-emerald-500" aria-hidden="true"></i>Kiểm tra nhanh tại lớp, xem tỉ lệ chọn từng đáp án</li>
+            <li class="flex gap-2.5"><i class="fa-solid fa-circle-check mt-0.5 text-emerald-500" aria-hidden="true"></i>Học sinh cũng có thể tự mở phòng để đấu với bạn bè</li>
+            <li class="flex gap-2.5"><i class="fa-solid fa-circle-check mt-0.5 text-emerald-500" aria-hidden="true"></i>Nhận XP và huy hiệu sau mỗi trận</li>
+          </ul>
+          <div class="mt-auto flex flex-wrap gap-3 pt-6"><a href="#/live" class="btn btn-primary btn-lg"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>Tham gia bằng mã</a><a href="#/live/host" class="btn btn-secondary btn-lg">Tạo phòng</a></div>
         </article>
       </div>
     </section>
@@ -1050,7 +1078,7 @@
     $("#setup-summary").innerHTML = !types.length
       ? '<i class="fa-solid fa-circle-info mr-1.5 text-slate-400" aria-hidden="true"></i>Hãy chọn ít nhất một dạng bài.'
       : !levels.length
-        ? '<i class="fa-solid fa-circle-info mr-1.5 text-slate-400" aria-hidden="true"></i>Hãy chọn ít nhất một mức độ khó.'
+        ? '<i class="fa-solid fa-circle-info mr-1.5 text-slate-400" aria-hidden="true"></i>Hãy ch���n ít nhất một mức độ khó.'
         : count
           ? `Bạn sẽ làm <strong class="text-slate-900">${count} câu</strong> thuộc ${types.length} dạng bài.`
           : "Không có câu hỏi nào khớp lựa chọn này. Hãy thử mở rộng độ khó.";
@@ -1395,6 +1423,7 @@
       spentSec: spent,
       times,
     });
+    attempt.reward = window.LabGame?.award(attempt) ?? null;
     Store.add(attempt);
     closeModal();
     toast("Đã lưu kết quả luyện tập vào lịch sử", "success");
@@ -1634,6 +1663,7 @@
       durationSec: session.durationSec,
       spentSec: auto ? session.durationSec : spent,
     });
+    attempt.reward = window.LabGame?.award(attempt) ?? null;
     Store.add(attempt);
     clearSession();
     closeModal();
@@ -1725,6 +1755,7 @@
           </div>
         </div>
       </div>
+      ${window.LabGame?.rewardHtml(attempt.reward) || ""}
 
       <div class="card mt-6 p-6">
         <h2 class="text-lg font-extrabold text-slate-900">Phân tích theo chuyên đề</h2>
@@ -1960,14 +1991,14 @@
     const params = new URLSearchParams(queryPart);
     const [name, ...rest] = parts;
     ddSel = null;
-    const navKey = { "": "home", bank: "bank", practice: "bank", exams: "exams", take: "exams", result: "history", history: "history", "ai-quiz": "ai", "stats": "stats" }[name] || "";
+    const navKey = { "": "home", bank: "bank", practice: "bank", exams: "exams", take: "exams", result: "history", history: "history", "ai-quiz": "ai", "stats": "stats", live: "live", about: "about", profile: "" }[name] || "";
 
     document.body.dataset.view = name || "home";
     $$("[data-nav]").forEach((a) => a.classList.toggle("is-active", a.dataset.nav === navKey));
     $("#mobile-menu").classList.add("hidden");
     $("#menu-toggle").setAttribute("aria-expanded", "false");
 
-    const titles = { "": "LabLuyen – Luyện thi Lý, Hóa, Sinh THPT", bank: "Ngân hàng câu hỏi – LabLuyen", practice: "Luyện tập – LabLuyen", exams: "Đề thi – LabLuyen", take: "Đang làm bài – LabLuyen", result: "Kết quả – LabLuyen", history: "Lịch sử làm bài – LabLuyen", "ai-quiz": "Tạo quiz bằng AI – LabLuyen", stats: "Thống kê kiến thức – LabLuyen" };
+    const titles = { "": "LabLuyen – Luyện thi Lý, Hóa, Sinh THPT", bank: "Ngân hàng câu hỏi – LabLuyen", practice: "Luyện tập – LabLuyen", exams: "Đề thi – LabLuyen", take: "Đang làm bài – LabLuyen", result: "Kết quả – LabLuyen", history: "Lịch sử làm bài – LabLuyen", "ai-quiz": "Tạo quiz bằng AI – LabLuyen", stats: "Thống kê kiến thức – LabLuyen", live: "Đấu trắc nghiệm trực tiếp – LabLuyen", about: "Giới thiệu – LabLuyen", profile: "Thành tích – LabLuyen" };
     document.title = titles[name] || titles[""];
     if (name !== "take" && name !== "practice" && name !== "result") ctx = { mode: "none", answers: {}, checked: {}, list: [] };
 
@@ -1979,7 +2010,7 @@
       case "take": renderTake(); break;
       case "result": renderResult(rest[0]); break;
       case "history": renderHistory(); break;
-      case "ai-quiz": case "stats":
+      case "ai-quiz": case "stats": case "live": case "about": case "profile":
         if (window.LabFeatures?.[name]) window.LabFeatures[name](rest, params);
         else renderNotFound();
         break;

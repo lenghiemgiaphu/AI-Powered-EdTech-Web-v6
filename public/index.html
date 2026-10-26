@@ -37,30 +37,35 @@
         <span class="text-lg">Lab<span class="text-indigo-600">Luyen</span></span>
       </a>
 
-      <ul class="ml-6 hidden items-center gap-1 md:flex">
+      <ul class="ml-4 hidden items-center gap-0.5 xl:flex">
         <li><a href="#/" data-nav="home" class="nav-link">Trang chủ</a></li>
         <li><a href="#/bank" data-nav="bank" class="nav-link">Ngân hàng câu hỏi</a></li>
         <li><a href="#/exams" data-nav="exams" class="nav-link">Đề thi</a></li>
         <li><a href="#/ai-quiz" data-nav="ai" class="nav-link">Quiz AI</a></li>
+        <li><a href="#/live" data-nav="live" class="nav-link">Đấu trực tiếp</a></li>
         <li><a href="#/stats" data-nav="stats" class="nav-link">Thống kê</a></li>
         <li><a href="#/history" data-nav="history" class="nav-link">Lịch sử</a></li>
+        <li><a href="#/about" data-nav="about" class="nav-link">Giới thiệu</a></li>
       </ul>
 
       <div class="ml-auto flex items-center gap-2">
+        <div id="game-chip"></div>
         <div id="auth-area"></div>
-        <button id="menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 md:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Mở menu">
+        <button id="menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 xl:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Mở menu">
           <i class="fa-solid fa-bars" aria-hidden="true"></i>
         </button>
       </div>
     </nav>
-    <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-4 py-3 md:hidden">
+    <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-4 py-3 xl:hidden">
       <ul class="grid gap-1">
         <li><a href="#/" data-nav="home" class="nav-link block">Trang chủ</a></li>
         <li><a href="#/bank" data-nav="bank" class="nav-link block">Ngân hàng câu hỏi</a></li>
         <li><a href="#/exams" data-nav="exams" class="nav-link block">Đề thi</a></li>
         <li><a href="#/ai-quiz" data-nav="ai" class="nav-link block">Quiz AI</a></li>
+        <li><a href="#/live" data-nav="live" class="nav-link block">Đấu trực tiếp</a></li>
         <li><a href="#/stats" data-nav="stats" class="nav-link block">Thống kê</a></li>
         <li><a href="#/history" data-nav="history" class="nav-link block">Lịch sử</a></li>
+        <li><a href="#/about" data-nav="about" class="nav-link block">Giới thiệu</a></li>
       </ul>
     </div>
   </header>
@@ -89,5 +94,8 @@
 <script src="app.js"></script>
 <script src="export.js"></script>
 <script src="features.js"></script>
+<script src="game.js"></script>
+<script src="live.js"></script>
+<script src="about.js"></script>
 </body>
 </html>
